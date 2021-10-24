@@ -1,0 +1,11 @@
+### Create a new post
+POST http://localhost:4001/posts/d1d791e0/comments
+Content-Type: application/json
+
+{
+  "content": "3 comment"
+}
+
+### list all posts
+GET http://localhost:4001/posts/58776ef8/comments
+Content-Type: application/json
