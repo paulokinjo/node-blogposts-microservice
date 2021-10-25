@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2beta24
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: paulokinjo/nodejs-blogpost-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: paulokinjo/nodejs-blogpost-comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: paulokinjo/nodejs-blogpost-event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: paulokinjo/nodejs-blogpost-moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: paulokinjo/nodejs-blogpost-posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: paulokinjo/nodejs-blogpost-query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
